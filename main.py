@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+import math
 
 blocks = {
     "black_concrete": [8, 10, 15], #080a0f
@@ -27,12 +28,37 @@ im = Image.open(r"albo.png")
 
 pixels = np.asarray(im)
 
-for block in blocks:
-    print(np.dot(blocks.get(block),blocks.get(block)))
+square = np.empty([pixels.shape[0],pixels.shape[1]])
+
+def RGBtoInt(rgb = [0,0,0]):
+    return math.sqrt(math.pow(rgb[0],2)+math.pow(rgb[1],2)+math.pow(rgb[2],2))
+
+def search(term):
+    for name, search in blocks.items():
+        if search == term:
+            return name
+
+def min(term = [0,0,0]):
+    min = 999999999
+    for block in blocks:
+        if RGBtoInt(term) - RGBtoInt(blocks.get(block)) < min:
+            min = RGBtoInt(term) - RGBtoInt(blocks.get(block))
+    return min
+
+for y in range(pixels.shape[0]):
+    for x in range(pixels.shape[1]):
+        square[y][x] = RGBtoInt(pixels[y][x])
+
+build = np.empty([pixels.shape[0],pixels.shape[1]])
+
+for y in range(pixels.shape[0]):
+    for x in range(pixels.shape[1]):
+            min(square[y][x])
+            print(max)
+            build[y][x] = search(max)
+
+print(square[10][20])
+print(build[10][20])
 
 #print(pixels)
-#print(pixels.shape)
-
-
-
 #im.show()

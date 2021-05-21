@@ -27,7 +27,12 @@ im = Image.open(r"albo.png")
 
 pixels = np.asarray(im)
 
-print(pixels)
-print(pixels.shape)
-print(pixels[1][1])
+for block in blocks:
+    print(np.dot(blocks.get(block),blocks.get(block)))
+
+#print(pixels)
+#print(pixels.shape)
+
+
+
 #im.show()
